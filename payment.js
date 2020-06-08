@@ -4,7 +4,7 @@ module.exports = function(){
 
 
     function getPayment(res, mysql, context, complete){
-        mysql.pool.query("SELECT transaction_id as id, payment_date, amount, type_payment, invoice_number FROM payments", function(error, results, fields){
+        mysql.pool.query("SELECT transaction_id as id, payment_date, amount, type_payment, invoice_number FROM payments ORDER BY invoice_number", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -27,11 +27,10 @@ module.exports = function(){
           });
       }
 
-
+        //find payment with associate transaction id
         function getPaymentById(req, res, mysql, context, complete) {
            var query = "SELECT transaction_id as id, payment_date, amount, type_payment, invoice_number FROM payments WHERE transaction_id LIKE " + mysql.pool.escape(req.params.s + '%');
-          console.log(query)
-
+          //console.log(query)
           mysql.pool.query(query, function(error, results, fields){
                 if(error){
                     res.write(JSON.stringify(error));
@@ -42,11 +41,11 @@ module.exports = function(){
             });
         }
 
-
+    //Display all payment
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["searchpayment.js","delete_item.js"];
+        context.jsscripts = ["search_item.js","delete_item.js"];
         var mysql = req.app.get('mysql');
         getPayment(res, mysql, context, complete);
         function complete(){
@@ -58,12 +57,12 @@ module.exports = function(){
         }
     });
 
-
+    //display all payment with inut transaction id
     router.get('/search/:s', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["searchpayment.js"];
-        context.css = ["payment_styles.css"]
+        context.jsscripts = ["search_item.js"];
+        context.css = ["styles.css"]
         var mysql = req.app.get('mysql');
         getPaymentById(req, res, mysql, context, complete);
         function complete(){
@@ -75,9 +74,9 @@ module.exports = function(){
     });
 
 
-
+    //add a payment
     router.post('/', function(req, res){
-        console.log(req.body)
+        //console.log(req.body)
         var mysql = req.app.get('mysql');
         var sql = "INSERT INTO payments (payment_date, amount, type_payment, invoice_number) VALUES (?,?,?,?)";
         var inserts = [req.body.payment_date, req.body.amount, req.body.type_payment, req.body.invoice_number];
@@ -92,12 +91,12 @@ module.exports = function(){
         });
     });
 
-    /*Display one employee for the specific purpose of updating */
+    //display one payment for update
     router.get('/:id', function(req, res){
       callbackCount = 0;
       var context = {};
       context.jsscripts = ["selectedpayment.js", "update_item.js"];
-      context.css = ["payment_styles.css"]
+      context.css = ["styles.css"]
       var mysql = req.app.get('mysql');
       getUpdate(res, mysql, context, req.params.id, complete);
       function complete(){
@@ -109,12 +108,11 @@ module.exports = function(){
       }
     });
 
-    /* The URI that update data is sent to in order to update an employee */
-
+    // The URI that update data is sent to in order to update a payment
     router.put('/:id', function(req, res){
         var mysql = req.app.get('mysql');
-        console.log(req.body)
-        console.log(req.params.id)
+        //console.log(req.body)
+        //console.log(req.params.id)
         var sql = "UPDATE payments SET payment_date=?, amount=?, type_payment=?, invoice_number=? WHERE transaction_id=?";
         var inserts = [req.body.payment_date, req.body.amount, req.body.type_payment, req.body.invoice_number, req.params.id];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
@@ -129,6 +127,7 @@ module.exports = function(){
         });
     });
 
+    // route to delete payment
     router.delete('/:id', function(req, res){
         var mysql = req.app.get('mysql');
         var sql = "DELETE FROM payments WHERE transaction_id = ?";
@@ -144,7 +143,6 @@ module.exports = function(){
             }
         })
     })
-    //"delete_item.js"]
 
     return router;
 }();

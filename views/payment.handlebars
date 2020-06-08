@@ -2,7 +2,7 @@
 
   <head>
     <title>11 out of 10 Plumbing</title>
-    <link rel="stylesheet" href="payment_styles.css">
+    <link rel="stylesheet" href="styles.css">
   </head>
 
   <body>
@@ -19,6 +19,7 @@
               <li><a href='/employee'>Employee</a></li>
               <li><a href="/service">Service</a></li>
               <li><a href="/payment">Payment</a></li>
+              <li><a href="/job">Job</a></li>
             </ul>
           </nav>
           </div>
@@ -28,9 +29,9 @@
 
         <form class="submission-form" id="addperson" action="/payment" method="post">
           <h3>Add new Payment</h3>
-            <label>Date:</label> <input type="date" name="payment_date"><br>
-            <label>Amount:</label> <input type="number" name="amount" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100"><br>
-            <label>Invoice number</label> <input type="text" name="invoice_number"><br>
+            <label>Date:</label> <input type="date" name="payment_date" required><br>
+            <label>Amount:</label> <input type="number" name="amount" required><br>
+            <label>Invoice number</label> <input type="text" name="invoice_number" required><br>
             <label>Payment Type:</label>
             <select name = "type_payment">
                <option value = "check">check</option>
@@ -38,7 +39,7 @@
                <option value = "cash">cash</option>
                <option value = "money order">money order</option>
                <option value = "direct deposit">direct deposit</option>
-               <option value = "other">other</option><br />
+               <option value = "other">other</option><br>
             <input type="submit" value="Submit" id="sendBtn">
          </form>
 
@@ -46,8 +47,8 @@
         <form class="submission-form" id='search_people' action='' method=''>
           <h3>Search Payment</h3>
             <label> Search payment by Transaction ID:</label>
-            <input id='first_name_search_string' type='text' name='first_name_search_string' value=''>
-            <input type="button" value="Search" onclick="searchPeopleByFirstName()" id="sendBtn">
+            <input id='payment_search_id' type='text' name='payment_search_id' value=''>
+            <input type="button" value="Search" onclick="searchPaymentById()" id="sendBtn">
         </form>
 
         <h3>Current Payment:</h3>

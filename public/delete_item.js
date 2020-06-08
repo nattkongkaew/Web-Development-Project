@@ -57,3 +57,19 @@ function deletePayment(id){
         }
     })
 };
+
+
+function deleteInvoiceService(invoice_number, service_id){
+  $.ajax({
+      url: '/job/invoice_number/' + invoice_number + '/service/' + service_id,
+      type: 'DELETE',
+      success: function(result){
+          if(result.responseText != undefined){
+            alert(result.responseText)
+          }
+          else {
+            window.location.reload(true)
+          }
+      }
+  })
+};

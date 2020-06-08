@@ -1,6 +1,7 @@
--- project step 6 Draft
+-- 11 out of 10 Plumbing
 -- Team 11
--- These are some Database Manipulation queries for a partially implemented Project Website
+-- Member: Natthaphong Kongkaew
+-- These are some Database Manipulation queries for implemented Project Website
 -- using the cs340_kongkaen database.
 -- deonte that (:) refer to input from user
 -- denote that (?) read from user input
@@ -83,3 +84,17 @@ INSERT INTO services (service_name, unit_price, service_description, warranty) V
 UPDATE services SET service_name=?, unit_price=?, service_description=?, warranty=? WHERE service_id=?
 -- delete an service
 DELETE FROM services WHERE service_id = ?
+
+
+-- jobs data Manipulation
+-- jobs solve for M:M between services and invoice
+-- get all invoice by invoice number
+SELECT invoice_number FROM invoices
+-- get all services by service Name
+SELECT service_id, service_name FROM services
+-- query to associate an invoice to multiple services
+INSERT INTO jobs (invoice_number, service_id) VALUES (?,?)
+-- delete jobs
+DELETE FROM jobs WHERE invoice_number = ? AND service_id = ?
+-- get all jobs
+SELECT invoices.invoice_number, services.service_id, service_name FROM invoices INNER JOIN jobs on invoices.invoice_number = jobs.invoice_number INNER JOIN services on services.service_id = jobs.service_id ORDER BY invoice_number

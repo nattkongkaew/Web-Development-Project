@@ -1,0 +1,71 @@
+<html>
+<head>
+  <title>11 out of 10 Plumbing</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+      <header = id="page_header">
+        <div class="container">
+        <img src="plumber-van.png" alt="logo" class="logo">
+        <nav>
+          <ul>
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="/schedule">Schedule</a></li>
+            <li><a href="/invoice">Invoice</a></li>
+            <li><a href="/customer">Customer</a></li>
+            <li><a href='/employee'>Employee</a></li>
+            <li><a href="/service">Service</a></li>
+            <li><a href="/payment">Payment</a></li>
+            <li><a href="/job">Job</a></li>
+          </ul>
+        </nav>
+        </div>
+      </header>
+
+
+<div>
+
+    <form class="submission-form" id="add_invoice_services" action="/job" method="post">
+      <h3> Associate services(s) with an invoice </h3>
+      <label>Invoice number:</label> <select name='invoice_number'>
+        {{#each invoice}}
+          <option value='{{invoice_number}}'>{{invoice_number}}</option>
+        {{/each}}
+    </select>
+    <br>
+    <br />
+    <label>Services (Multi-select):</label> <select multiple name="servs">
+        {{!-- We display title but the value that is submitted through the form is actually the certificate's id --}}
+        {{#each services}}
+        <option value="{{service_id}}">{{service_name}}</option>
+        {{/each}}
+    </select><br>
+    <input type="submit" value="Submit" id="sendBtn">
+    </form>
+</div>
+<br/>
+
+<h3> List of Invoice with its services </h3>
+<table>
+    <thead>
+        <th>Invoice Number</th>
+        <th>Services</th>
+    </thead>
+    <tbody>
+        {{#each invoice_with_service}}
+        <tr>
+            <td>{{invoice_number}}</td>
+            <td>{{service_name}}</td>
+            <td><button onclick="deleteInvoiceService({{invoice_number}},{{service_id}})">Delete</button></td>
+        </tr>
+        {{else}}
+        <b> No invoice with any services found! Grant some using the form. </b>
+        {{/each}}
+
+    </tbody>
+</table>
+
+
+</html>

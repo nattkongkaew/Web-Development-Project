@@ -24,6 +24,7 @@ app.use('/schedule', require('./schedule.js'));
 app.use('/invoice', require('./invoice.js'));
 app.use('/service', require('./service.js'));
 app.use('/payment', require('./payment.js'));
+app.use('/job', require('./job.js'));
 app.use('/', express.static('public'));
 
 app.use(function(req,res){

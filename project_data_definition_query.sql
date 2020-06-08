@@ -105,17 +105,17 @@ CREATE TABLE `jobs` (
 -- in the order of employee_id, first_name, last_name, phone_number, job_title, skill.
 
 INSERT INTO `employees` (first_name, last_name, phone_number, job_title, skill)
-VALUES ('Jamie', 'Kolb', '501-648-3728', 'Plumber', 'Installs and services'),
-        ('Ruben', 'Patterson', '906-343-4821', 'Plumber', 'Heater and Plumbing'),
-        ('Robert', 'Young', '925-767-2526', 'Dispatcher', 'Web Dispatcher');
+VALUES ('Jamie', 'Kolb', '501-6483728', 'Plumber', 'Installs and services'),
+        ('Ruben', 'Patterson', '906-3434821', 'Plumber', 'Heater and Plumbing'),
+        ('Robert', 'Young', '925-7672526', 'Dispatcher', 'Web Dispatcher');
 
 -- Query to insert new customers to "customer" table
 -- in the order of customer_id, first_name, last_name, address1, address2, city, zip_code, state, country, phone_number, email, employee_id
 
 INSERT INTO `customers` (first_name, last_name, address1,address2, city, zip_code, state, country, phone_number, email, employee_id)
-VALUES  ('Keith', 'Gibson', '4461 Pick Street', '', 'Fraser', 80442, 'CO', 'USA', '970-722-7802', 'KeithLGibson@jourrapide.com', 1),
-        ('Carmen', 'Early', '1471 Deercove Drive', '', 'Irving', 75063, 'TX', 'USA', '214-929-7457', 'CarmenPEarly@dayrep.com', 2),
-        ('Cecil', 'Murphy', '391 Village View Drive', '', 'Lanham', 20706, 'MD', 'USA', '240-241-3756', 'cust3@CecilLMurphy@rhyta.com.edu', 3);
+VALUES  ('Keith', 'Gibson', '4461 Pick Street', '', 'Fraser', 80442, 'CO', 'USA', '970-7227802', 'KeithLGibson@jourrapide.com', 1),
+        ('Carmen', 'Early', '1471 Deercove Drive', '', 'Irving', 75063, 'TX', 'USA', '214-9297457', 'CarmenPEarly@dayrep.com', 2),
+        ('Cecil', 'Murphy', '391 Village View Drive', '', 'Lanham', 20706, 'MD', 'USA', '240-2413756', 'cust3@CecilLMurphy@rhyta.com.edu', 3);
 
 -- Query to insert new work_order to "work_orders" table
 -- in the order of work_order_number, call_reason, date, arrival_windows_1, arrival_windows_2, status, customer_id

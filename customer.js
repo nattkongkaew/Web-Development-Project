@@ -39,7 +39,7 @@ module.exports = function(){
 
     function getCustomerByEmployee(req, res, mysql, context, complete){
       var query = "SELECT customers.customer_id as id, customers.first_name, customers.last_name, address1, address2, city, zip_code, state, country, customers.phone_number, email, employees.first_name as sale_rep, employees.employee_id FROM customers INNER JOIN employees ON employees.employee_id = customers.employee_id WHERE customers.employee_id = ?";
-      console.log(req.params)
+      //console.log(req.params)
       var inserts = [req.params.employee_id]
       mysql.pool.query(query, inserts, function(error, results, fields){
             if(error){
@@ -54,11 +54,9 @@ module.exports = function(){
 
 
 
-        function getPeopleWithNameLike(req, res, mysql, context, complete) {
-
+    function getCustomerWithNameLike(req, res, mysql, context, complete) {
            var query = "SELECT customers.customer_id as id, first_name, last_name, address1, address2, city, zip_code, state, country, phone_number, email FROM customers WHERE customers.first_name LIKE " + mysql.pool.escape(req.params.s + '%');
-          console.log(query)
-
+          //console.log(query)
           mysql.pool.query(query, function(error, results, fields){
                 if(error){
                     res.write(JSON.stringify(error));
@@ -69,13 +67,11 @@ module.exports = function(){
             });
         }
 
-
-
-
+    //route to display all customer
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["delete_item.js","filtercustomer.js","searchcustomer.js"];
+        context.jsscripts = ["delete_item.js","filtercustomer.js","search_item.js"];
         var mysql = req.app.get('mysql');
         getCustomer(res, mysql, context, complete);
         getEmployees(res, mysql, context, complete);
@@ -88,12 +84,12 @@ module.exports = function(){
         }
     });
 
-
+    //route to get cuustomer by filter employee
     router.get('/filter/:employee_id', function(req, res){
         var callbackCount = 0;
         var context = {};
         context.jsscripts = ["filtercustomer.js","searchcustomer.js"];
-        context.css = ["customer_styles.css"]
+        context.css = ["styles.css"]
         var mysql = req.app.get('mysql');
         getCustomerByEmployee(req,res, mysql, context, complete);
         getEmployees(res, mysql, context, complete);
@@ -107,14 +103,14 @@ module.exports = function(){
     });
 
 
-
+    //route to display employee from search by first name like
     router.get('/search/:s', function(req, res){
         var callbackCount = 0;
         var context = {};
         context.jsscripts = ["filtercustomer.js","searchcustomer.js"];
-        context.css = ["customer_styles.css"]
+        context.css = ["styles.css"]
         var mysql = req.app.get('mysql');
-        getPeopleWithNameLike(req, res, mysql, context, complete);
+        getCustomerWithNameLike(req, res, mysql, context, complete);
         getEmployees(res, mysql, context, complete);
         function complete(){
             callbackCount++;
@@ -126,10 +122,10 @@ module.exports = function(){
 
 
 
-/* Insert data into table */
+    //add a new customer then redirect back to customer page
     router.post('/', function(req, res){
-        console.log(req.body.employee_id)
-        console.log(req.body)
+        //console.log(req.body.employee_id)
+        //console.log(req.body)
         var mysql = req.app.get('mysql');
         var sql = "INSERT INTO customers (first_name, last_name, address1, address2, city, zip_code, state, country, phone_number, email, employee_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         var inserts = [req.body.first_name, req.body.last_name, req.body.address1, req.body.address2, req.body.city, req.body.zip_code, req.body.state, req.body.country, req.body.phone_number, req.body.email, req.body.employee_id];
@@ -144,6 +140,7 @@ module.exports = function(){
         });
     });
 
+    //route to delete customer use Ajax
     router.delete('/:id', function(req, res){
         var mysql = req.app.get('mysql');
         var sql = "DELETE FROM customers WHERE customer_id = ?";
@@ -159,10 +156,8 @@ module.exports = function(){
             }
         })
     })
-    //"delete_item.js"]
 
-    /* Display one person for the specific purpose of updating people*/
-
+        //display specific customer for update
         router.get('/:id', function(req, res){
             callbackCount = 0;
             var context = {};
@@ -178,10 +173,12 @@ module.exports = function(){
 
             }
         });
+
+        //route to update customer page, then redirect back to customer
         router.put('/:id', function(req, res){
         var mysql = req.app.get('mysql');
-        console.log(req.body)
-        console.log(req.params.id)
+        //console.log(req.body)
+        //console.log(req.params.id)
         var sql = "UPDATE customers SET first_name=?, last_name=?, address1=?, address2=?, city=?, zip_code=?, state=?, country=?, phone_number=?, email=?, employee_id=? WHERE customer_id=?";
         var inserts = [req.body.first_name, req.body.last_name, req.body.address1, req.body.address2, req.body.city, req.body.zip_code, req.body.state, req.body.country, req.body.phone_number, req.body.email, req.body.employee_id, req.params.id];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
@@ -195,9 +192,6 @@ module.exports = function(){
             }
         });
     });
-
-
-
 
     return router;
 }();

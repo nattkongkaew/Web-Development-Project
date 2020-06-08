@@ -2,7 +2,7 @@
 
   <head>
     <title>11 out of 10 Plumbing</title>
-    <link rel="stylesheet" href="invoice_styles.css">
+    <link rel="stylesheet" href="styles.css">
   </head>
 
   <body>
@@ -19,6 +19,7 @@
               <li><a href='/employee'>Employee</a></li>
               <li><a href="/service">Service</a></li>
               <li><a href="/payment">Payment</a></li>
+              <li><a href="/job">Job</a></li>
             </ul>
           </nav>
           </div>
@@ -28,9 +29,9 @@
 
         <form class="submission-form" id="addperson" action="/invoice" method="post">
           <h3>Add new Invoice</h3>
-            <label>Total Price:</label> <input type="text" name="total_price"><br>
-            <label>Due Date:</label> <input type="date" name="due_date" ><br>
-            <label>Work Order Number Assosiated:</label> <input type="text" name="work_order_number"><br>
+            <label>Total Price:</label> <input type="text" name="total_price" required><br>
+            <label>Due Date:</label> <input type="date" name="due_date" required><br>
+            <label>Work Order Number Assosiated:</label> <input type="text" name="work_order_number" required><br>
             <label>Status:</label>
             <select name = "status">
                <option value = "closed">Closed</option>
@@ -43,8 +44,8 @@
         <form class="submission-form" id='search_people' action='' method=''>
           <h3>Search Invoice</h3>
             <label> Search invoice by invoice number:</label>
-            <input id='first_name_search_string' type='text' name='first_name_search_string' value=''>
-            <input type="button" value="Search" onclick="searchPeopleByFirstName()" id="sendBtn">
+            <input id='invoice_search_number' type='text' name='invoice_search_number' value=''>
+            <input type="button" value="Search" onclick="searchInvoiceByNumber()" id="sendBtn">
         </form>
 
         <h3>Current Invoices:</h3>

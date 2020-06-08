@@ -2,7 +2,7 @@
 
   <head>
     <title>11 out of 10 Plumbing</title>
-    <link rel="stylesheet" href="employee_styles.css">
+    <link rel="stylesheet" href="styles.css">
   </head>
 
   <body>
@@ -19,6 +19,7 @@
               <li><a href='/employee'>Employee</a></li>
               <li><a href="/service">Service</a></li>
               <li><a href="/payment">Payment</a></li>
+              <li><a href="/job">Job</a></li>
             </ul>
           </nav>
           </div>
@@ -28,11 +29,11 @@
 
         <form class="submission-form" id="addperson" action="/employee" method="post">
           <h3>Add new Employee</h3>
-            <label>First name:</label> <input type="text" name="first_name"><br>
-            <label>Last name:</label> <input type="text" name="last_name"><br>
-            <label>Phone Number:</label> <input type="text" name="phone_number"><br>
-            <label>Job Title:</label> <input type="text" name="job_title"><br>
-            <label>Skill:</label> <input type="text" name="skill"><br>
+            <label>First name:</label> <input type="text" name="first_name" maxlength = "20" required><br>
+            <label>Last name:</label> <input type="text" name="last_name" maxlength = "20"  required><br>
+            <label>Phone Number:</label> <input type="text" name="phone_number" maxlength = "20" placeholder="123-4567890" pattern="[0-9]{3}-[0-9]{7}" required><br>
+            <label>Job Title:</label> <input type="text" name="job_title" maxlength = "20"  required><br>
+            <label>Skill:</label> <input type="text" name="skill" maxlength = "30"  required><br>
             <input type="submit" value="Submit" id="sendBtn">
          </form>
         <br/>
@@ -41,7 +42,7 @@
           <h3>Search Employee</h3>
             <label> Search employee for first name starting with:</label>
             <input id='first_name_search_string' type='text' name='first_name_search_string' value=''>
-            <input type="button" value="Search" onclick="searchPeopleByFirstName()" id="sendBtn">
+            <input type="button" value="Search" onclick="searchEmployeeByFirstName()" id="sendBtn">
         </form>
 
         <h3>Current employee:</h3>

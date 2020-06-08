@@ -2,7 +2,7 @@
 
   <head>
     <title>11 out of 10 Plumbing</title>
-    <link rel="stylesheet" href="employee_styles.css">
+    <link rel="stylesheet" href="styles.css">
   </head>
 
   <body>
@@ -19,6 +19,7 @@
               <li><a href='/employee'>Employee</a></li>
               <li><a href="/service">Service</a></li>
               <li><a href="/payment">Payment</a></li>
+              <li><a href="/job">Job</a></li>
             </ul>
           </nav>
           </div>
@@ -28,11 +29,11 @@
 
         <form class="submission-form" id="addperson" action="/schedule" method="post">
           <h3>Add new Work Order</h3>
-            <label>Call reason:</label> <input type="text" name="call_reason"><br>
-            <label>Date:</label> <input type="date" name="date"><br>
-            <label>Arrival windows 1:</label> <input type="time" name="arrival_windows_1"><br>
-            <label>Arrival windows 2:</label> <input type="time" name="arrival_windows_2"><br>
-            <label>Customer ID:</label> <input type="number" name="customer_id"><br>
+            <label>Call reason:</label> <input type="text" name="call_reason" required><br>
+            <label>Date:</label> <input type="date" name="date" required><br>
+            <label>Arrival windows 1:</label> <input type="time" name="arrival_windows_1" required><br>
+            <label>Arrival windows 2:</label> <input type="time" name="arrival_windows_2" required><br>
+            <label>Customer ID:</label> <input type="number" name="customer_id" required><br>
             <label>Status:</label>
             <select name = "status">
                <option value = "Confirmed">Confirmed</option>
@@ -45,8 +46,8 @@
         <form class="submission-form" id='search_people' action='' method=''>
           <h3>Search Work Order</h3>
             <label> Search work order by customer ID:</label>
-            <input id='first_name_search_string' type='text' name='first_name_search_string' value=''>
-            <input type="button" value="Search" onclick="searchPeopleByFirstName()" id="sendBtn">
+            <input id='work_order_search_customer_id' type='text' name='work_order_search_customer_id' value=''>
+            <input type="button" value="Search" onclick="searchWorkOrderByCustomerId()" id="sendBtn">
         </form>
 
         <h3>Current Work Order:</h3>

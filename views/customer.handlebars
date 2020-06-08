@@ -1,7 +1,7 @@
 <html>
 
   <head>
-    <link rel="stylesheet" href="customer_styles.css" type="text/css">
+    <link rel="stylesheet" href="styles.css" type="text/css">
   </head>
 
   <body>
@@ -18,6 +18,7 @@
               <li><a href='/employee'>Employee</a></li>
               <li><a href="/service">Service</a></li>
               <li><a href="/payment">Payment</a></li>
+              <li><a href="/job">Job</a></li>
             </ul>
           </nav>
           </div>
@@ -28,12 +29,12 @@
         <form class="submission-form" id="addperson" action="/customer" method="post">
           <h3>Add new Customer</h3>
 
-            <label>First name:</label> <input type="text" name="first_name"><br>
-            <label>Last name:</label> <input type="text" name="last_name"><br>
-            <label>Address 1</label> <input type="text" name="address1"><br>
-            <label>Address 2 (optional)</label> <input type="text" name="address2"><br>
-            <label>City</label> <input type="text" name="city"><br>
-            <label>Zip Code</label> <input type="text" name="zip_code"><br>
+            <label>First name:</label> <input type="text" name="first_name" maxlength = "20"  required><br>
+            <label>Last name:</label> <input type="text" name="last_name" maxlength = "20"  required><br>
+            <label>Address 1</label> <input type="text" name="address1" maxlength = "50"  required><br>
+            <label>Address 2 (optional)</label> <input type="text" name="address2" maxlength = "50"><br>
+            <label>City</label> <input type="text" name="city"  maxlength = "20"  required><br>
+            <label>Zip Code</label> <input type="text" name="zip_code"  maxlength = "5"  required><br>
             <label>State</label>
             <select name="state">
 	<option value="AL">Alabama</option>
@@ -88,9 +89,9 @@
 	<option value="WI">Wisconsin</option>
 	<option value="WY">Wyoming</option>
 </select>		<br>
-            <label>Country</label> <input type="text" name="country"><br>
-            <label>Phone Number</label> <input type="text" name="phone_number"><br>
-            <label>Email</label> <input type="text" name="email"><br>
+            <label>Country</label> <input type="text" name="country" maxlength = "20"  required><br>
+            <label>Phone Number</label> <input type="text" name="phone_number" maxlength = "20" placeholder="123-4567890" pattern="[0-9]{3}-[0-9]{7}" required><br>
+            <label>Email</label> <input type="text" name="email"  maxlength = "50"  required><br>
 
             <label>Work with employee:</label> <select name="employee_id">
                     {{#each employees}}
@@ -109,8 +110,8 @@
         <form class="submission-form" id='search_people' action='' method=''>
           <h3>Search Customer</h3>
             <label> Search customer for first name starting with:</label>
-            <input id='first_name_search_string' type='text' name='first_name_search_string' value=''>
-            <input type="button" value="Search" onclick="searchPeopleByFirstName()" id="sendBtn">
+            <input id='customer_search_first_name' type='text' name='customer_search_first_name' value=''>
+            <input type="button" value="Search" onclick="searchCustomerByFirstName()" id="sendBtn">
         </form>
 
         <form class="submission-form" id='filter_people' action='' method=''>
@@ -121,8 +122,10 @@
           <option value="{{employee_id}}">{{first_name}}</option>
           {{/each}}
       </select><br>
-      <input type="button" value="Filter" onclick="filterPeopleByName()" id="sendBtn" />
+      <input type="button" value="Filter" onclick="filterPeopleByName()" id="sendBtn" /><br />
+    <input type="button" value="Clear Search/Filter" onclick= "window.location = '/customer';" id="sendBtn" />
   </form>
+
 
         <h3>Current Customer:</h3>
         <center>

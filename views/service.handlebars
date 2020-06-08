@@ -2,7 +2,7 @@
 
   <head>
     <title>11 out of 10 Plumbing</title>
-    <link rel="stylesheet" href="service_styles.css">
+    <link rel="stylesheet" href="styles.css">
   </head>
 
   <body>
@@ -19,6 +19,7 @@
               <li><a href='/employee'>Employee</a></li>
               <li><a href="/service">Service</a></li>
               <li><a href="/payment">Payment</a></li>
+              <li><a href="/job">Job</a></li>
             </ul>
           </nav>
           </div>
@@ -28,9 +29,9 @@
 
         <form class="submission-form" id="addperson" action="/service" method="post">
           <h3>Add new Service</h3>
-            <label>Name:</label> <input type="text" name="service_name"><br>
-            <label>Price:</label> <input type="number" name="unit_price" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100"><br>
-            <label>Description:</label> <input type="text" name="service_description"><br>
+            <label>Name:</label> <input type="text" name="service_name" maxlength = "100"  required><br>
+            <label>Price:</label> <input type="number" name="unit_price" required<br>
+            <label>Description:</label> <input type="text" name="service_description" required><br>
             <label>Warranty:</label>
             <select name = "warranty">
                <option value = "7 days">7 days</option>
@@ -49,8 +50,8 @@
         <form class="submission-form" id='search_people' action='' method=''>
           <h3>Search Service</h3>
             <label> Search service by Name:</label>
-            <input id='first_name_search_string' type='text' name='first_name_search_string' value=''>
-            <input type="button" value="Search" onclick="searchPeopleByFirstName()" id="sendBtn">
+            <input id='service_search_name' type='text' name='service_search_name' value=''>
+            <input type="button" value="Search" onclick="searchServiceByName()" id="sendBtn">
         </form>
 
         <h3>Current Service:</h3>
